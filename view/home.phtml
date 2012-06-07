@@ -1,0 +1,375 @@
+<!DOCTYPE HTML>
+<html lang="es">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="shortcut icon" href="<?php gigpz::ruta();?>public/img/favicon.ico">
+	<link rel="icon" type="image/gif" href="<?php gigpz::ruta();?>public/img/gigpz_favicon.gif" />
+	
+
+	<link rel="stylesheet" type="text/css"  media="screen" href="<?php gigpz::ruta();?>public/css/bestilos_home.css">
+	<link rel="stylesheet" type="text/css" href="<?php gigpz::ruta();?>public/css/uploadify.css" />
+	<title>gigpz .::<?php echo $nombre; ?>::.</title>
+	<!--<script type="text/javascript" src="http://js.pusher.com/1.11/pusher.min.js"></script>-->
+	<script type="text/javascript" src="<?php gigpz::ruta();?>public/js/jquery-1.7.2.js"></script>
+	<script type="text/javascript" src="<?php gigpz::ruta();?>public/js/jquery-ui-1.8.20.custom.min.js"></script>
+	<script type="text/javascript" src="<?php gigpz::ruta();?>public/js/jquery.uploadify-3.1.min.js"></script>
+	<script type="text/javascript" src="<?php gigpz::ruta();?>public/js/funciones.js"></script>
+	<script type="text/javascript">
+
+		/*var pusher= new Pusher('29f62bc285fb72215530');
+		var canal=pusher.subscribe('canal_prueba');
+
+		canal.bind('nueva_noticia',function(respuesta){
+			alert(respuesta.texto);
+		});*/
+
+		function efecto_menu(id,color)
+		{
+ 			document.getElementById(id).style.backgroundColor=color;
+		}
+		/*if ($(document).ready()) 
+			{
+				alert('Listo');
+			}else{
+				alert('No esta Listo');
+			}*/
+		
+		$(document).ready(function(){
+			$('#boton_prueba').click(function(){
+				//alert('funciona ');
+				//gigpz.mifuncion();  //Funcion x Borrar..............
+				$(document.body).addClass("mi_body");
+				$("#sombra").addClass("sombraLoad");
+				$("#sombra").show();
+				
+
+			});
+			
+
+			$('#file_upload').uploadify({
+			'height'   	: 25,
+        	'swf'      	: 'controller/uploadify.swf',
+        	'uploader' 	: 'controller/uploadify.php',
+        	'method'	: 'post',
+        	'formData' 	: {'album':'<?php echo $id_miembro; ?>','id_alb':swIdAlbum},
+        	'onUploadSuccess' : function(file, data, response) {
+        			//alert('The file was saved to: ' + data);
+        			//swIdAlbum=data;
+        			// Put your options here
+        	},    	
+        	'onDialogClose'  : function(queueData) {
+            	//alert(queueData.filesQueued + ' files were queued of ' + queueData.filesSelected + ' selected files. There are ' + queueData.queueLength + ' total files in the queue.');
+            	$.ajax({
+		  					url:'controller/upload_fotosController.php',
+		  					type:"GET",
+		  					data:'gFoto=si',
+		  					cache: false,
+		  					success:function(rpt)
+		  					{
+		  						swIdAlbum=rpt;
+		  						//alert('recibido: '+swIdAlbum);
+		  					}
+		  				}).done(function( obj ) {
+		  					//alert( "datos Recibidos: ");
+		  					
+		  				});
+        	},
+        	'onQueueComplete' : function(queueData) {
+            	alert(queueData.uploadsSuccessful + ' files were successfully uploaded.');
+            	
+				window.location="<?php echo gigpz::ruta();?>"+"?accion=home";
+        	}
+
+    		});
+
+			$('#file_upload').click(function(){
+				//alert('funka');
+					
+			});
+
+			$(function() {
+				//$( ".draggable" ).draggable({ revert: true,scroll:true });
+				//$( "#chat" ).draggable({ revert: false,scroll:true });
+				$( "#bloke_recicler" ).droppable({
+					accept: ".draggable",
+					//tolerance: "touch",
+					tolerance: "pointer",
+					drop: function( event, ui ) {
+						
+					},
+					over: function(event, ui) {
+						$( "#bloke_recicler" ).css("backgroundColor","#FFA500");
+						$( "#datos_noticias"+id_div).draggable("destroy");
+						eliminar_noticia("datos_noticias"+id_div,id_NoticiaX,<?php echo $id_miembro;?>);
+						//alert(ui.draggable);
+					}
+
+				});				
+			});
+
+		});
+
+		//gigpz.conectar();
+	</script>
+	<style type="text/css">
+		header, nav, article, footer, address,section,hgroup
+		{
+    		display: block;
+    	}
+	</style>
+   <!--[if lt IE 9]>
+   <script type="text/javascript">
+	   document.createElement("nav");
+	   document.createElement("header");
+	   document.createElement("footer");
+	   document.createElement("section");
+	   document.createElement("article");
+	   document.createElement("aside");
+	   document.createElement("hgroup");
+   </script>
+   <![endif]-->
+</head>
+<body>
+	<div id="principal">
+	<!--aqui script droppables-->
+		<aside id="contenedor_miembro">
+			<div id="espacio_vacio">&nbsp;</div>
+			<section id="datos_miembro">
+				
+				<div id="perfil_miembro">
+					<?php
+						if ($foto!='foto')
+						{
+							$dimensiones=getimagesize("public/upload/$id_miembro/$foto");
+							$ancho=$dimensiones[0];
+							$alto=$dimensiones[1];
+							if($ancho>$alto){
+								echo"<img src='public/upload/$id_miembro/$foto' title='Foto Perfil' height='120px' width='140px' border='0'/>";
+							}elseif($ancho<$alto){
+								echo"<img src='public/upload/$id_miembro/$foto' title='Foto Perfil' height='140px' width='120px' border='0'/>";
+							}else{
+								echo"<img src='public/upload/$id_miembro/$foto' title='Foto Perfil' height='140px' width='140px' border='0'/>";
+								}
+						}
+					?>
+					<strong>Datos de: <?php echo $nombre;?></strong>
+					<a href="#">Editar mi Perfil</a>
+					<p class="separador"></p>
+
+				</div>
+				<div id="contenidos_miembro">
+					aqui todo el contendio fotos y mas
+					<input type="button" name="boton_prueba" id="boton_prueba" value="jquery">
+					<!-- -->
+					
+					<!-- -->
+					<div id="chat">chat</div>
+				</div>
+			</section>
+		</aside>
+		<div id="separador_principal">&nbsp;</div>
+		<article id="contenido">
+			<header id="cabecera">
+				<img src="<?php gigpz::ruta();?>public/img/gigpz.gif" width="230" height="50" id="" border="0" title="En agradecimiento a los maestros de la web !"/>
+				<img src="<?php gigpz::ruta();?>public/img/eslogan.png" width="400" height="50" border="0"/>
+			</header>
+			<?php
+				include("view/menu.phtml");
+			?>
+			<section id="cuerpo">
+				<aside id="widget">
+					<div class="cabecera_widget">
+						<img src="public/img/esquina.gif" width="100%" height="25px">
+					</div>
+					<div class="contenido_widget">
+						menu navegacion
+					</div>
+				</aside>
+				<div id="contenido_cuerpo">
+					<!--5-->
+					<div id="crear_album">
+						<h3>Seleccione los Archivos</h3>
+						<span>Multiples</span>
+						<input type="file" name="file_upload" id="file_upload" />
+					</div>
+					<div class="destacados" title="Ultimas Fotos">
+						<a href="javascript:void(0);" onclick="gigpz.crearAlbum();"><strong>Crear un album</strong></a>
+						&nbsp;---&nbsp;
+						<a href="javascript:void(0);"><strong>Fotos destacadas</strong></a>&nbsp;-
+						<a href="<?php echo gigpz::ruta(); ?>?accion=salir">Cerrar Sesion</a><br />
+						<?php
+							$ultimas_destacadas=count($fotos_destacadas);
+							if($ultimas_destacadas>0)
+							{
+							  if($ultimas_destacadas==4)
+							  {
+								  
+							   for($f=0;$f<$ultimas_destacadas;$f++)
+							   {
+									$foto_album=$fotos_destacadas[$f]["foto"];
+									$id_foto=$fotos_destacadas[$f]["id_foto"];
+									$id_album=$fotos_destacadas[$f]["id_album"];
+									$posicion=$f;
+									///////////////////////////////
+									miembros::ValidaDimensiones($id_miembro,$foto_album,$id_foto,$posicion,$total_destacadas,$id_album);
+							   }
+							  }else if($ultimas_destacadas>0 && $ultimas_destacadas<4){
+								$faltan=4-$ultimas_destacadas;
+								for($f=0;$f<$ultimas_destacadas;$f++)
+								{
+									$foto_album=$fotos_destacadas[$f]["foto"];
+									$id_foto=$fotos_destacadas[$f]["id_foto"];
+									$id_album=$fotos_destacadas[$f]["id_album"];
+									$posicion=$f;
+									/////////////////////////////////////
+									miembros::ValidaDimensiones($id_miembro,$foto_album,$id_foto,$posicion,$total_destacadas,$id_album);	
+								}
+								for($f=0;$f<$faltan;$f++)
+								{
+									echo "faltan ".$f."| ";
+								}
+							  }
+							}else
+							{
+								echo "No hay fotos para mostrar";
+							} 
+						?>
+					</div>
+					<div id="v_modal" class="windowUnload">
+						<!--aqui botones de navegacion y foto en grande-->
+						<img src="<?php gigpz::ruta();?>public/img/prev.png" class="btn_navegacion" title="anterior" onclick="navegar_fotos(<?php echo $id_miembro;?>,posicion,'prev',<?php echo $total_destacadas;?>)">
+
+						<div id="mostrar_foto">
+							contenido del div
+						</div>
+
+						<img src="<?php gigpz::ruta();?>public/img/next.png" class="btn_navegacion" title="proximo" onclick="navegar_fotos(<?php echo $id_miembro;?>,posicion,'next',<?php echo $total_destacadas;?>)">
+					</div>
+					<div id="sombra" class="sombraUnload" onclick="ocultar_ventana();"></div>
+					<div class="ideas" id="idea">
+						<form name="frm_ideas" id="frm_ideas" method="" action="">
+							<img src="public/img/pensando.gif" width="50" height="60" title="Nueva Idea!" border="0px"/><br />
+							<textarea id="txtideas" name="txtideas"></textarea>
+							<img src="public/img/btnPublicar.png" id="btnPublicar" class="boton_publicar" onclick="nuevaNoticia(<?php echo $total_noticia; ?>,frm_ideas.txtideas.value); gigpz.enviar_peticion(frm_ideas.txtideas.value,<?php echo $id_miembro;?>,<?php echo $ultima_noticia;?>,'a',<?php echo $total_noticia; ?>); limpiar_form('frm_ideas','txtideas'); return false;"/>
+							<!-- -->
+						</form>
+					</div>
+					<div id="bloke_noticias">
+						<!--aqui las noticias grabadas con ajax-->
+						<div id="datos_noticias"></div>
+						<?php
+							for ($i=0; $i < sizeof($noticias); $i++)
+							{ 
+								//aqui el filtro de las noticias
+								//tambien la hacemos dragable cada div
+								$id_no=$noticias[$i]["id_noticia"];
+								if(noticias::filtrar_noticia($id_miembro,$id_no)==true)
+								{
+
+
+							?>
+								<div class="noticias draggable" id="datos_noticias<?php echo $i?>">
+								<!--aqui script para dragable-->
+									<script type="text/javascript">
+									$(function() {
+										$( "#datos_noticias<?php echo $i; ?>" ).draggable({ 
+											revert: true,
+											scroll:true,
+											zIndex:2700,
+											start: function(event, ui) {
+												id_NoticiaX=<?php echo $noticias[$i]["id_noticia"];?>;
+												id_div=<?php echo $i;?>;
+											}
+										});
+
+									});
+									</script>
+									<div class="noticias_separador"></div>
+									<div class="noticias_titulo">
+										<img src="public/upload/<?php echo $noticias[$i]["avatar"];?>" alt="avatar" border="0" width="42" height="50"/>
+											<strong>
+
+											<?php echo $noticias[$i]["titulo_noticia"];?>
+	                						</strong>
+	                						<span>!!
+	                						<?php echo $noticias[$i]["fecha_noticia"]; echo " - ".$noticias[$i]["hora_noticia"]; ?> 
+	                						<br>
+	                						<?php echo wordwrap($noticias[$i]["acontecimiento"],59,"\n",true); ?>
+	                						</span>
+                						
+									</div>
+									<div class="noticias_linea_cuerpo"></div>
+									<div class="noticias_separador"></div>
+									<div class="noticias_cuerpo" id="noticias_cuerpo<?php echo $i;?>">
+										<div class="comentarios_generados_noticias" id="resultado_de_comentarios<?php echo $i;?>">
+										<?php
+											$comentarios_noticia=$n->get_comentarios_de_noticia($noticias[$i]["id_noticia"]);
+											if ($comentarios_noticia != "0")
+											{
+												//array_slice($comentarios_noti,0);
+												for($x=0;$x<sizeof($comentarios_noticia);$x++)
+												{
+												  echo "<div class='comentarios_grabados' id='comentGenerado$x'>";
+												  ?>
+												  <img src="public/upload/<?php echo $comentarios_noticia[$x]['avatar'];?>" alt="avatar" border="0" width="20" height="24"/>
+						                          <?php
+												  
+												  echo "<p>".wordwrap($comentarios_noticia[$x]["comentario"],36,"\n",true)."</p><div class='formatoInternoSeparador'></div></div>";
+												  
+
+												}
+												$totC=$x;
+											}
+											else
+											{
+												//echo "No Hay Ningun Comentario sobre este acontecimiento";
+												$totC=0;
+											}
+										?>
+											
+										</div>
+										<div class="operaciones_noticia">
+											<a href="javascript:void(0)" id="" onclick="gigpz.crearComentador(<?php echo $i;?>,<?php echo $total_coment; ?>,'resultado_de_comentarios<?php echo $i;?>','?accion=grabar_comentario','<?php echo $noticias[$i]["id_noticia"];?>','b',<?php echo $id_miembro;?>);">Comentar</a>
+											&nbsp;&nbsp;&nbsp;--------&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);">Me gusta!</a>
+											total de comentarios -->> <?php echo $totC;?>
+										</div>
+										<!--AQUI COMENTADOR-->
+										<div class="noticias_separador" id="noticias_separador<?php echo $i;?>"></div>
+										
+									</div>
+									<div class="noticias_foot"></div>
+									
+								</div>
+
+							<?php
+								unset($comentarios_noticia);
+								}
+							}
+						?>						
+					</div>
+					<hr>
+				</div>
+				
+				<!--<php
+					print_r($_SESSION);
+					//print_r(base64_encode($_SESSION["session_id"]));
+					//echo base64_decode($str);
+				?>-->
+				<aside id="zona">
+					aqui zona...
+				</aside>
+			</section>
+			
+		<footer id="pie">&nbsp;&nbsp;&nbsp;pie</footer>
+		</article>
+
+		
+	</div>
+	<script type="text/javascript">
+		gigpz.conectar(<?php echo $id_miembro;?>,<?php echo $ultima_noticia;?>);
+	</script>
+	<div id="bloke_recicler" title="Reciclar">
+		R<br>e<br>c
+	</div>
+</body>
+</html>

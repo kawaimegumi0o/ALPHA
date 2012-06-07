@@ -1,0 +1,6 @@
+<img src="public/upload/<?php echo $mostrar[0]["avatar"];?>" alt="avatar" border="0" width="20" height="24"/>
+<?php
+//echo " ".trim($mostrar[0]["comentario"]);
+echo "<p>".wordwrap($mostrar[0]["comentario"],36,"\n",true)."</p><div class='formatoInternoSeparador'></div>";
+
+?>

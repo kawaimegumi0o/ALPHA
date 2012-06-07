@@ -1,0 +1,25 @@
+<img id="mi_imagen" name="mi_imagen" src="<?php gigpz::ruta();?>public/upload/<?php echo $miembro;?>/fotos/<?php echo $navegacion[0]["foto"]; ?>" border="0" />
+<div id="bloke_comentarios_foto">
+	<?php
+		$tot_com=count($comentarios_foto);
+		if ($tot_com>0) {
+			for ($i=0; $i<$tot_com;$i++)
+			{
+				echo "<div id='comentFoto$i' class=''>".$comentarios_foto[$i]["comentario"]."</div>";
+			}
+			$ultimo_comentario=$i;
+		}else
+		{
+			$ultimo_comentario=0;
+			//echo $ultimo_comentario;
+		}
+		
+	?>
+</div>
+<div id="bloke_comentador_foto" class="">
+	<form name="frm_comentarFoto" action="" method="">
+		<label for="txta_comentar_foto">Comentar</label>
+		<textarea id="txta_comentar_foto" name="txta_comentar_foto" class="formatoInternoText" onkeyup="enter(event,2); nuevo_comentario_foto(<?php echo $ultimo_comentario;?>,'?accion=grabar_comentarioFoto',<?php echo $id_foto;?>,frm_comentarFoto.txta_comentar_foto.value,'c',<?php echo $miembro;?>);"></textarea>
+		<!--id_ultimo,pag,id_foto,coment,btnId,resp-->
+	</form>
+</div>

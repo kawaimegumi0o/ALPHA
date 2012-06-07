@@ -1,0 +1,30 @@
+RewriteEngine On
+
+#personalizar errores de navegador
+#ErrorDocument 404 /noacceso.php
+#ErrorDocument 403 /noacceso.php
+
+#Restriccion de acceso
+#Deny From all
+
+#los archivos .aspx me los leerá como .php
+#AddType application/x-httpd-php .aspx
+
+
+
+
+#esto es con una variable
+
+#seo 3
+#RewriteRule ^.*n([0-9]+)\/$ entrada.php?id_noticia=$1 [L]
+RewriteRule ^gigpz.html$ index.php [L]
+#seo 1
+#RewriteRule ^.*n([0-9]+)\.html$ entrada.php?id_noticia=$1 [L]
+
+
+#este es con 2 variables
+
+#seo 2
+#RewriteRule ^.*n([0-9]+)/*/c([a-z]+)\.html$ entrada.php?id_noticia=$1&id_categoria=$2 [L]
+#seo 4
+#RewriteRule ^.*n([0-9]+)/*-c([0-9]+)\/$ entrada.php?id_categoria=$1&id_sub_categoria=$2 [L]

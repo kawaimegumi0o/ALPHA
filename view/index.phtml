@@ -1,0 +1,221 @@
+<!DOCTYPE HTML>
+<html lang="es">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="shortcut icon" href="<?php gigpz::ruta();?>public/img/favicon.ico">
+	<link rel="icon" type="image/gif" href="<?php gigpz::ruta();?>public/img/gigpz_favicon.gif" />
+	
+	<link rel="stylesheet" type="text/css"  media="screen" href="<?php gigpz::ruta();?>public/css/bestilos_index.css">
+	<title>Bienvendios a Gigpz</title>
+	<script type="text/javascript" src="<?php gigpz::ruta();?>public/js/jquery-1.7.2.js"></script>
+	<script type="text/javascript" src="<?php gigpz::ruta();?>public/js/md5.js"></script>
+	<script type="text/javascript" src="<?php gigpz::ruta();?>public/js/funciones.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#prueba').click(function()
+								   {
+								   	//alert($('#prueba').html());
+								   	$('#prueba').html("cambio...");
+
+								   });
+			document.getElementById('form_ingreso').reset();
+			document.getElementById('form_registro').reset();
+
+		});
+	</script>
+	<style type="text/css">
+		header, nav, article, footer, address,section,hgroup
+		{
+    		display: block;
+    	}
+	</style>
+   <!--[if lt IE 9]>
+   <script type="text/javascript">
+	   document.createElement("nav");
+	   document.createElement("header");
+	   document.createElement("footer");
+	   document.createElement("section");
+	   document.createElement("article");
+	   document.createElement("aside");
+	   document.createElement("hgroup");
+   </script>
+   <![endif]-->
+</head>
+<body>
+<noscript>
+  <p>Bienvenido a Mi Sitio</p>
+  <p>La página que estás viendo requiere para su funcionamiento el uso de JavaScript. 
+	Si lo has deshabilitado intencionadamente, por favor vuelve a activarlo.<span>&nbsp;gigpz</span></p>
+</noscript>
+<div id="principal">
+	<header id="cabecera">Aqui el fondo de cabecera
+		<form name="form_ingreso" method="post" action="?accion=index" id="form_ingreso">
+            <label for="nom_miembro">Usuario:</label>
+            <input type="text"  class="" name="nom_miembro" id="nom_miembro"/>
+            <label for="pass_miembro">Contraseña:</label>
+           	<input type="password" class="" name="pass_miembro" id="pass_miembro" onkeyup="enter(event,1);"/>
+            <img src="<?php gigpz::ruta();?>public/img/btnIniciar3.png" height="22px" id="" onclick="validalogueo();" />
+            <input type="hidden" name="ingresar" value="si" />
+         </form>
+	</header>
+	<nav>
+		<!--Aqui el nav-->
+	</nav>
+	<article id="cuerpo">
+		<?php echo ROOT." - ";?>
+		<hgroup>
+		<h2>Registro de Usuario:</h2>
+		<?php
+		if (isset($_GET["m"])) 
+		{
+			switch ($_GET["m"]) {
+				case '1':
+					?>
+					<h3 style="color:red">No se han enviado alguno de los valores de Registro</h3>
+					<?php
+					break;
+				case '2':
+						?>
+						<h3 style="color:red">El email o contraseña incorrectos </h3>
+						<?php
+						break;
+				case '3':
+						?>
+						<h4 style="color:green">Se ha cerrado la sesion Exitosamente...</h4>
+						<?php
+						break;
+				case '4':
+						?>
+						<h3 style="color:green">Se ha Registrado Correctamente...</h3>
+						<?php
+						break;
+				case '5':
+						?>
+						<h3 style="color:red">El Miembro ya ha sido Registrado</h3>
+						<?php
+						break;
+				default:
+					# code...
+					break;
+			}
+		}
+		?>
+		</hgroup>
+		<section id="registro">
+			<fieldset>
+				<legend>Datos del Miembro</legend>
+				<form name="form_registro" method="post" action="?accion=registrar" id="form_registro">
+					
+					<label for="nombre">Nombre</label>
+					<input type="text" class="texto" name="nombre" id="nombre" onkeydown="escribio('this.value','div_nombre');"/><br>
+					
+					<label for="apellido">Apellidos</label>	
+					<input type="text" class="texto" name="apellido" id="apellido" onkeydown="escribio('this.value','div_apellido');"/><br>
+
+					<label for="email">Email</label>
+					<input type="text" class="texto" name="email" id="email" onkeydown="" onblur="gigpz_ajax(this.value,'rpt_registro','<?php gigpz::ruta();?>controller/existeController.php');"/>
+					<br>
+
+					<label for="pass">Contraseña</label>
+					<input type="password" class="texto"  id="pass" name="pass" onkeydown="escribio('this.value','div_contrasena');"/><br>
+
+					<label for="repass">Repirta la Contraseña</label>
+					<input type="password"  class="texto" id="repass" name="repass"/><br>
+					
+					<label for="sexo">Sexo</label>
+					
+					<select name="sexo" id="sexo" class="seleccion" onchange="escribio('this.value','div_sexo');">
+
+	                        <option value="Seleccione">Seleccione</option>
+	                        <option value="h">Hombre</option>
+	                        <option value="m">Mujer</option>
+	                </select>
+	                <fieldset>
+					<legend>Fecha de Nacimiento</legend>
+					<select name="cbo_dias" class="seleccion" onchange="escribio(this.value,'div_fecha');">
+	                           <option value="dia" >Dia</option>
+	                           <?php
+	                        	$dia=date("d");
+								for($x=1;$x<=31;$x++)
+								 {
+								 	if ($x==$dia) {
+								 		?>
+								 			<option value="<?php echo $x; ?>" selected="selected"><?php echo $x; ?></option>
+
+								 		<?php
+								 	}else
+								 	{
+								 		?>
+								 			<option value="<?php echo $x; ?>"><?php echo $x; ?></option>
+								 		<?php
+								 	}
+								?>
+	                            	
+	                            <?php  	 
+								 
+								 }
+							    ?>
+	                </select>
+	                &nbsp;&nbsp;
+					<select name="cbo_meses" class="seleccion" onchange="escribio(this.value,'div_fecha');">
+						<option value="mes" >Mes</option>
+						<?php
+							$mes=date("m")-1;
+							
+							
+							for ($i=0; $i <count($meses) ; $i++) 
+							{
+								if ($i==$mes) {
+								 	?>
+								 		<option value="<?php echo $i+1;?>" selected="selected"><?php echo $meses[$i];?></option>
+								 	<?php
+								 } else
+								 {
+								 	?>   
+										<option value="<?php echo $i+1;?>"><?php echo $meses[$i];?></option>
+	                         		<?php
+								 }
+							}							
+						?>
+					</select>
+					&nbsp;&nbsp;
+	                <select name="cbo_anos" class="seleccion" onchange="escribio(this.value,'div_fecha');">
+	                          <option value="ano">Año</option>
+	                          <?php
+	                            $ano=date("Y");
+								for($j=1930;$j<=date("Y");$j++)
+								  {
+								  	if ($j==$ano) {
+								  		?>
+								  		<option value="<?php echo $j; ?>" selected="selected"><?php echo $j; ?></option>
+								  		<?php
+								  	}else
+								  	{
+								  		?>
+	                           			<option value="<?php echo $j; ?>"><?php echo $j; ?></option>
+	                            		<?php  	
+								  	}
+								 
+								  }
+							    ?>
+	                </select>
+	                </fieldset>
+	                <img  src="<?php gigpz::ruta();?>public/img/BtnRegistrar.png" id="btn_registrar" name="registrar" onclick="validaregistro();"/><a href="javascript:void(0);">Terminos y Condiciones</a>
+				</form>
+			</fieldset>
+		</section>
+		<section id="rpt_registro">
+			Aqui respuesta de registro
+		</section>
+	</article>
+	<aside id="notas">
+		<section id="notas_gigpz">
+			&nbsp;&nbsp; Aqui datos en ......
+			<!--<a href="#" onclick="from_post(777,'ajax','<php echo gigpz::ruta();?>controller/ajaxController.php');">-->
+		</section>
+	</aside>	
+<footer id="pie">&copy;www.gigpz.com</footer>
+</div>
+
+</body>
+</html>

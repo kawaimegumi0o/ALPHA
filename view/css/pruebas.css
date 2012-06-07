@@ -1,0 +1,185 @@
+body{margin: 0px 0px 0px 0px;}
+		a{ text-decoration: none;}
+		#bloke_principal{
+			margin: 10px auto 0px auto;
+			width:700px;
+			height:550px;
+			padding: 30px 30px 30px 30px;
+			background-color: #CCC;
+
+			/*position:absolute;*/
+			/*top:50%;
+			left:50%;*/
+			/*margin-top: -450px;*/
+			/*margin-left: -350px;*/
+
+			/*-webkit-box-shadow: #666 0px 2px 3px;
+			-moz-box-shadow: #666 0px 2px 3px;
+			box-shadow: #666 0px 2px 3px;*/
+		}
+
+
+		#bloke{
+			font-family: Arial, "MS Trebuchet", sans-serif;
+			font-size: 16px;
+			background-color: #036;
+			border:0px;
+			color: #fff;
+			height:550px;
+			width:700px;
+
+			-webkit-box-shadow: #666 0px 2px 3px;
+			-moz-box-shadow: #666 0px 2px 3px;
+			box-shadow: #666 0px 2px 3px;
+
+			background: #036;
+			background: -webkit-gradient(linear, 0 0, 0 bottom, from(#036), to(#768FA7));
+			background: -webkit-linear-gradient(#036, #768FA7);
+			background: -moz-linear-gradient(#036, #768FA7);
+			background: -ms-linear-gradient(#036, #768FA7);
+			background: -o-linear-gradient(#036, #768FA7);
+			background: linear-gradient(#036, #768FA7);
+
+			-webkit-border-radius: 25px 25px 25px 25px;
+			-moz-border-radius: 25px 25px 25px 25px;
+			border-radius: 25px 25px 25px 25px;
+			
+		}
+		#bloke img{
+
+				position: absolute;
+				float: left;
+				left:54%;
+				top:350px;
+				
+			}
+		#bloke span{
+			margin-left: 1%;
+		}
+		#bloke_acordion{
+			width:600px;	
+			height:500px;
+			border:0px;
+			margin: 0px auto;
+		}
+			
+			
+			#accordion	address:after{
+					content: "webmaster\40 gigpz.com";
+					color:#ff8000;
+				}
+
+				/*-----------------------------------------------*/
+				#frm_contacto{
+					/*position: relative;*/
+					/*width:300px;*/
+					float: left;
+					width:540px;
+				}
+				#frm_contacto fieldset
+				{
+					margin: 10px auto 40px auto;
+					width:500px;
+				}
+				#frm_contacto fieldset label{
+					
+					float: left;
+					color: #DcDcDc;
+					font-weight:bold;
+					font-size:16px;
+					width:200px;
+					padding-top: 10px;
+				}
+				#frm_contacto fieldset #captcha{
+					display: block;
+					position: relative;
+					float: left;
+					width:100px;
+					margin: 0px 50px;
+					left:1px;
+					top:30%;
+					margin-bottom: 4px;
+					
+				}
+				#frm_contacto fieldset input{
+					background-color: #cfdff7;
+					border: 1px solid #999;
+					float: left;
+					font-size:16px;
+					height:30px;
+					margin-bottom: 4px;
+
+					padding: 1px;
+					width:250px;
+				}
+				#frm_contacto fieldset textarea{
+					background-color: #cfdff7;
+					border: 1px solid #999;
+					float: left;
+					height:50px;
+					margin-bottom: 5px;
+					padding: 1px;
+					width:250px;
+					overflow: hidden;
+				}
+				#frm_contacto fieldset input[type="button"]{
+					
+					background-color: #4771b5!important;
+					width:120px!important;
+					color: #fff;
+					cursor: pointer;
+					margin-left: 50px;
+				}
+				#frm_contacto fieldset span{
+					display: block;
+					clear: both;
+					line-height:16px;
+				}
+				/*#frm_contacto input[type="text"], textarea{
+						width:300px;
+						font-size: 0.8em;								
+						position: relative;
+						left:0px;
+						
+						clear: left;
+						margin-left: 30px;
+						resize:none;
+					}*/
+					
+				/*-----------------------------------------------*/
+				#div_comentario{
+					/*text-align: center;*/
+
+				}
+				#div_comentario #frm_comentario{
+
+						position: relative;
+						float: left;
+						left:0px;
+						top:60%;
+						margin-left: 5px;
+
+					}
+					#div_comentario #frm_comentario *{
+						position: relative;
+						left:0px;
+						
+						margin-left: 10px;
+					}
+					#frm_comentario #contenedor_chat{
+						background-color: #FBF676;
+						width:200px;
+						border: 1px solid #999;
+
+					}
+
+					#frm_comentario	textarea{
+									width:200px;
+									height:20px;
+									line-height:20px;
+									
+								}
+			
+				
+			
+		

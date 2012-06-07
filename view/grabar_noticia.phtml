@@ -1,0 +1,41 @@
+<div class="noticias_separador"></div>
+<div class="noticias_titulo" onmousemove="javascript:id_NoticiaX=<?php echo $idNot;?>">
+	<img src="public/upload/<?php echo $mi_ultima[0]['avatar'];?>" alt="avatar" border="0" width="40" height="50" onmousemove="javascript:id_NoticiaX=<?php echo $idNot;?>"/>
+	<strong>
+	<?php echo $mi_ultima[0]["titulo_noticia"];?>
+	</strong>
+	<span>!!
+	<?php echo $mi_ultima[0]["fecha_noticia"]." - ".$mi_ultima[0]["hora_noticia"]; ?> 
+	<br>
+	<?php echo wordwrap($mi_ultima[0]["acontecimiento"],59,"\n",true); ?>
+	</span>
+</div>
+<div class="noticias_linea_cuerpo"></div>
+<div class="noticias_separador"></div>
+<div class="noticias_cuerpo" onmousemove="javascript:id_NoticiaX=<?php echo $idNot;?>" id="noticias_cuerpo<?php echo $idNot; ?>">
+	<div class="comentarios_generados_noticias" id="resultado_de_comentariosX<?php echo $idNot;?>">
+			<?php
+				$comentarios_noticia=$n->get_comentarios_de_noticia($mi_ultima[0]["id_noticia"]);
+				if ($comentarios_noticia != "0"){
+					for ($i=0; $i <sizeof($comentarios_noticia) ; $i++) {
+					echo "<div class='comentarios_grabados' id='comentGeneradoY$i'>";
+					?>
+					<img src="public/upload/<?php echo $comentarios_noticia[$i]['avatar'];?>" alt="avatar" border="0" width="20" height="24"/>
+					<?php
+					echo "<p>".wordwrap($comentarios_noticia[$i]["comentario"],36,"\n",true)."</p><div class='formatoInternoSeparador'></div></div>";					
+					}
+					$totC=$i;
+				}else
+				{
+					$totC=0;
+				}
+				
+			?>
+
+	</div>
+	<div class="operaciones_noticia">
+		<a href="javascript:void(0)" id="" onclick="gigpz.crearComentador(<?php echo $idNot;?>,<?php echo $total_comentarios; ?>,'resultado_de_comentariosX<?php echo $idNot;?>','?accion=grabar_comentario','<?php echo $idNot;?>','b',<?php echo $responsable;?>);">Comentar</a>&nbsp;&nbsp;&nbsp;--------&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);">Me gusta! </a>total de comentarios -- >> 0
+	</div>
+
+</div>
+<div class="noticias_foot"></div>
